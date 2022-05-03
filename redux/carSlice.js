@@ -12,6 +12,10 @@ export const carSlice = createSlice({
     max_price: 0,
   },
   reducers: {
+    fetch_categories: (state, action) => {
+      state.categories = action.payload;
+    },
+
     getallcars: (state, action) => {
       state.allcars = action.payload;
     },
@@ -67,43 +71,31 @@ export const carSlice = createSlice({
       }
     },
 
-// shoe only  5 car at first and calculate the rest of car numbers and show more when clicke and payload change
+    // shoe only  5 car at first and calculate the rest of car numbers and show more when clicke and payload change
 
+    showcars: (state, action) => {
+      //calculate the rest of car numbers and show more when clicke and payload change
 
-showcars: (state, action) => {
+      const rest = state.allcars.cars.length - 5;
 
-  //calculate the rest of car numbers and show more when clicke and payload change
+      if (action.payload === "showmore") {
+        state.allcars.cars.length > 5
+          ? (state.allcars.cars.length = 5)
+          : (state.allcars.cars.length = rest);
+      } else if (action.payload === "showless") {
+        state.allcars.cars.length > 5
+          ? (state.allcars.cars.length = rest)
+          : (state.allcars.cars.length = 5);
+      }
+    },
 
-  const rest = state.allcars.cars.length - 5;
+    maxPrice: (state, action) => {
+      state.max_price = action.payload;
+    },
 
-  if (action.payload === "showmore") {
-
-    state.allcars.cars.length > 5 ? state.allcars.cars.length = 5 : state.allcars.cars.length = rest;
-
-  } else if (action.payload === "showless") {
-
-    state.allcars.cars.length > 5 ? state.allcars.cars.length = rest : state.allcars.cars.length = 5;
-
-  }
-
-},
-
-
- maxPrice : (state, action) => {
-
-  state.max_price = action.payload;
-
-},
-  
-minPrice : (state, action) => {
-
-  state.min_price = action.payload;
-
-}
-
-
-
-
+    minPrice: (state, action) => {
+      state.min_price = action.payload;
+    },
   },
 });
 
@@ -114,7 +106,7 @@ export const {
   getUser,
   getallcars,
   filterSearchEvery,
-
+  fetch_categories,
   minPrice,
   maxPrice,
 

@@ -8,16 +8,16 @@ import {
   filterSearchByName,
   filterSearchEvery,
   minPrice,
-  maxPrice
+  maxPrice,
 } from "../redux/carSlice";
 import { useSelector, useDispatch } from "react-redux";
 //import {findcarbyprice} from "./API/index";
 
 export default function PriceRange() {
   const apiurl = "http://localhost:5000/api";
-//  const [min_price, setMinPrice] = useState(0);
+  //  const [min_price, setMinPrice] = useState(0);
 
- // const [max_price, setMaxPrice] = useState(0);
+  // const [max_price, setMaxPrice] = useState(0);
 
   const [price, setPrice] = useState(0);
 
@@ -37,7 +37,7 @@ export default function PriceRange() {
 
   const dispatch = useDispatch();
 
-  const { allcars,min_price,max_price } = useSelector((state) => state.car);
+  const { allcars, min_price, max_price } = useSelector((state) => state.car);
 
   console.log("redux--->", allcars.cars);
 
@@ -47,21 +47,19 @@ export default function PriceRange() {
     console.log(e.target.checked);
 
     if (e.target.checked) {
-       const min_pricevalue =e.target.value.split(",")[0]
-       console.log('minvalue',min_pricevalue);
-    //  setMinPrice(parseInt(min_pricevalue)); // before , result 23000
-       const max_pricevalue  =  e.target.value.split(",")[1]
-       console.log('maxvalue',max_pricevalue,' convert to number' );
+      const min_pricevalue = e.target.value.split(",")[0];
+      console.log("minvalue", min_pricevalue);
+      //  setMinPrice(parseInt(min_pricevalue)); // before , result 23000
+      const max_pricevalue = e.target.value.split(",")[1];
+      console.log("maxvalue", max_pricevalue, " convert to number");
 
-
-
-  //    setMaxPrice(parseInt(max_pricevalue)); //after ,  result {200000}
+      //    setMaxPrice(parseInt(max_pricevalue)); //after ,  result {200000}
 
       console.log("max_price----->", max_price);
       console.log("min_price ----->", min_price);
 
-      dispatch(maxPrice(parseInt(min_pricevalue)) );
-      dispatch(minPrice(parseInt(max_pricevalue)) );
+      dispatch(maxPrice(parseInt(min_pricevalue)));
+      dispatch(minPrice(parseInt(max_pricevalue)));
 
       // setMaxPrice(max_price);
 
@@ -70,42 +68,33 @@ export default function PriceRange() {
       // http://localhost:5000/api/car/search-car-by-price-range hh
 
       setTimeout(() => {
-
-        console.log("max_price----->", max_pricevalue,'------',min_pricevalue);
+        console.log(
+          "max_price----->",
+          max_pricevalue,
+          "------",
+          min_pricevalue
+        );
 
         const data = axios
-        .post(`${apiurl}/car/search-car-by-price-range `, {
-          price_min: min_pricevalue,
-          price_max:  max_pricevalue,
-        })
-        .then((res) => {
-          console.log("------>", res.data);
+          .post(`${apiurl}/car/search-car-by-price-range `, {
+            price_min: min_pricevalue,
+            price_max: max_pricevalue,
+          })
+          .then((res) => {
+            console.log("------>", res.data);
 
-          setCar(res.data);
-          dispatch(getallcars(res.data)); //  <--------------
-          console.log("------>", car.cars[1]);
-          //console.log(car,car.cars.length);
+            setCar(res.data);
+            dispatch(getallcars(res.data)); //  <--------------
+            console.log("------>", car.cars[1]);
+            //console.log(car,car.cars.length);
 
-          return res.data;
-        });
-
-
-
-
+            return res.data;
+          });
       }, 1000);
-
-   
+    } else {
+      dispatch(maxPrice(0));
+      dispatch(minPrice(0));
     }
-
-else{
-
-dispatch(maxPrice(0));
-dispatch(minPrice(0));
-
-
-}
-
-
 
     // else if nothing checked  fetch all cars
   };
@@ -126,12 +115,10 @@ dispatch(minPrice(0));
   };
 
   useEffect(() => {
-   // if (!e.target.checked) {
-      // // http://localhost:5000/api/car/search-car-by-query?search=ren&&city=istanbul
+    // if (!e.target.checked) {
+    // // http://localhost:5000/api/car/search-car-by-query?search=ren&&city=istanbul
 
-
-if  (min_price === 0 && max_price === 0){
-
+    if (min_price === 0 && max_price === 0) {
       console.log("else--------->");
       const data = axios
         .get(
@@ -149,15 +136,21 @@ if  (min_price === 0 && max_price === 0){
 
           return res.data;
         });
-      }
-        //data();
-  //  }
+    }
+    //data();
+    //  }
   }, [min_price]);
+
+
+
+
+
+  
 
   return (
     <div>
       <h1 className="  bg-[aliceblue]  text-red font-bold ">
-        price range find  {min_price} - {max_price}
+        price range find {min_price} - {max_price}
         <Button variant="primary">Primary</Button>{" "}
       </h1>
 
