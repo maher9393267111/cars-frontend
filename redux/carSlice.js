@@ -8,6 +8,8 @@ export const carSlice = createSlice({
     loading: false,
     error: null,
     categories: [],
+    min_price: 0,
+    max_price: 0,
   },
   reducers: {
     getallcars: (state, action) => {
@@ -64,6 +66,44 @@ export const carSlice = createSlice({
         // if price not empty and name empty  filter by togehter
       }
     },
+
+// shoe only  5 car at first and calculate the rest of car numbers and show more when clicke and payload change
+
+
+showcars: (state, action) => {
+
+  //calculate the rest of car numbers and show more when clicke and payload change
+
+  const rest = state.allcars.cars.length - 5;
+
+  if (action.payload === "showmore") {
+
+    state.allcars.cars.length > 5 ? state.allcars.cars.length = 5 : state.allcars.cars.length = rest;
+
+  } else if (action.payload === "showless") {
+
+    state.allcars.cars.length > 5 ? state.allcars.cars.length = rest : state.allcars.cars.length = 5;
+
+  }
+
+},
+
+
+ maxPrice : (state, action) => {
+
+  state.max_price = action.payload;
+
+},
+  
+minPrice : (state, action) => {
+
+  state.min_price = action.payload;
+
+}
+
+
+
+
   },
 });
 
@@ -74,6 +114,9 @@ export const {
   getUser,
   getallcars,
   filterSearchEvery,
+
+  minPrice,
+  maxPrice,
 
   filterSearchByName,
 } = carSlice.actions;
