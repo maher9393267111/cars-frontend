@@ -4,6 +4,7 @@ import {useState,useRef} from 'react';
 import React from "react";
 
 import Home from "./pages/home";
+import PriceRange from './components/priceRange';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -12,31 +13,7 @@ function App() {
   const refCheckbox = useRef();
 
 
-  const onChange = (e) => {
-    const cityName = e.target.value; // checkbox value
-   
-    // add all checkd inpu  to array
 
-    if(e.target.checked){
-
-      setCityFilter([...cityFilter,cityName]);
-    }
-
-    // remove all checked input from array
-
-    if(!e.target.checked){
-
-      setCityFilter(cityFilter.filter(city => city !== cityName));
-    }
-
-    // console.log(cityFilter);
-
-  
-
-
-
-     
-  };
 
 
   return (
@@ -45,8 +22,8 @@ function App() {
   
 <h1>Cars app</h1>
 
+<PriceRange />
 
-<Home/>
 
 
 

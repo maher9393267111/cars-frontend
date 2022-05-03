@@ -40,7 +40,7 @@ const handlesubmit = async(e) => {
     //e.preventDefault();
 
         const response = await axios.post(
-          `http://localhost:5000/api/car/search-car-by-query?search=${name}&city=${city}`
+          `http://localhost:5000/api/car/search-car-by-query?search=${name}&city=${city? city : ""}`
         );
   
         const data = await response.data;
@@ -58,7 +58,7 @@ const handlesubmit = async(e) => {
 
   return (
     <div>
-      <h1>home page</h1>
+      <h1>home page is here </h1>
 
       {/* // city input  */}
 
