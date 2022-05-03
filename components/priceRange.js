@@ -2,7 +2,7 @@ import React from "react";
 
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { getallcars,   filterSearchByName } from "../redux/carSlice";
+import { getallcars,   filterSearchByName,filterSearchEvery } from "../redux/carSlice";
 import { useSelector, useDispatch } from "react-redux";
 //import {findcarbyprice} from "./API/index";
 
@@ -11,6 +11,9 @@ export default function PriceRange() {
   const [min_price, setMinPrice] = useState(0);
 
   const [max_price, setMaxPrice] = useState(0);
+
+const [price, setPrice] = useState(0);
+
   const [name, setName] = useState("");
 
   const [car, setCar] = useState([]);
@@ -96,8 +99,12 @@ const regex = new RegExp(name, 'i');
 
 
 
+//send name and price as action payload to redux tofilter
 
-  dispatch(filterSearchByName(name))
+dispatch(filterSearchEvery({name:name,price:200000}))
+
+
+ // dispatch(filterSearchByName(name))
 
 
 }
