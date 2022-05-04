@@ -27,8 +27,9 @@ const cars = allcars?.cars ===  undefined ? allcars : allcars.cars;
   useEffect(() => {
     dispatch(fetch_allcarsApi());
    
+    
   
-    console.log("all  cars  fetched");
+    console.log("all  cars  fetched-----  maher branch");
   }, []);
 
 
