@@ -3,7 +3,7 @@ import './App.css';
 import {useState,useRef} from 'react';
 import React from "react";
 import Categories from "./components/categories";
-import Home from "./pages/home";
+//import Home from "./pages/home";
 import PriceRange from './components/priceRange';
 
 function App() {
