@@ -11,7 +11,8 @@ export const carSlice = createSlice({
     min_price: 0,
     max_price: 0,
     singlecar : {},
-    singlecategory:{}
+    singlecategory:{},
+    checkedBox:[]
   },
   reducers: {
     fetch_categories: (state, action) => {
@@ -39,6 +40,33 @@ fetch_carById: (state, action) => {
   state.singlecar = action.payload;
 
 } ,
+
+
+// find cars from chcked checkbox  from categories
+
+carsfilterbyCheckbox: (state, action) => {
+ const  checkedBox1 = action.payload;
+  console.log("checkedBox in redux", checkedBox1);
+  state.checkedBox = checkedBox1;
+
+  // filter cars by checked box 
+  const carsByfilter = state.allcars?.cars?.filter(car => {
+
+    return checkedBox1.includes(car.category);
+  }
+
+  );
+
+  
+  state.allcars = carsByfilter;
+
+
+} ,
+
+  // acton payload well be array of checked checkbox filter all.cars.car by category id
+
+  
+
 
 
 
@@ -135,6 +163,7 @@ export const {
   fetch_categoryById,
   getcarsByCategoryId,
   fetch_carById,
+  carsfilterbyCheckbox,
   
 
 

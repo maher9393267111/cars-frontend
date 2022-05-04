@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
-import { fetch_categoriesApi, carsBycategoryIdApi,fetch_cargoryByIdApi } from "../redux/fetchapi";
+import { fetch_categoriesApi, carsBycategoryIdApi,fetch_cargoryByIdApi,fetch_allcarsApi } from "../redux/fetchapi";
 import { useSelector, useDispatch } from "react-redux";
-import { getcarsByCategoryId } from "../redux/carSlice";
+import { getcarsByCategoryId,carsfilterbyCheckbox } from "../redux/carSlice";
 import axios from "axios";
 
 export default function Categories() {
@@ -10,14 +10,26 @@ export default function Categories() {
 
   const dispatch = useDispatch();
 
-  const { categories,allcars:{cars} } = useSelector((state) => state.car);
+  const { categories,allcars } = useSelector((state) => state.car);
+
+const cars = allcars?.cars ===  undefined ? allcars : allcars.cars;
+
+
   console.log("Categories from redux fetch", categories);
 
   useEffect(() => {
     dispatch(fetch_categoriesApi());
-    console.log("helloc categoreis");
+   
+  
+    console.log("all  categoreis  fetched");
   }, []);
 
+  useEffect(() => {
+    dispatch(fetch_allcarsApi());
+   
+  
+    console.log("all  cars  fetched");
+  }, []);
 
 
 
@@ -32,6 +44,56 @@ export default function Categories() {
     console.log("cat clickeed");
   };
 
+
+const [checkedbox,setcheckedbox] = useState([]);
+
+// find car by category id from checkbox checked
+
+
+const handleCheckbox = (e) => {
+  
+
+  const {value,checked} = e.target;
+
+  if( e.target.checked === true){
+    console.log(e.target.value,e.target.checked);
+
+    if(checkedbox.length === 0){
+      setcheckedbox([...checkedbox,value]);
+      console.log("checkedbox  at meeeeee",checkedbox);
+    }
+
+//pus checked input to checkedinputs array by and keep old values
+setcheckedbox([...checkedbox,value])
+    dispatch(carsfilterbyCheckbox(checkedbox))
+    console.log("checkedinputs", checkedbox);
+
+  }   if(! e.target.checked)  {
+
+    const checkboxnew = checkedbox.filter((item) => item !== e.target.value); 
+
+ 
+setcheckedbox(checkboxnew)
+
+// if checkedbox.length === 0 then set checkedbox to []
+
+// setcheckedbox(checkedbox?.length === 0 ? [] : checkedbox)
+// console.log("splicefromarray", checkedbox);
+    
+    dispatch(carsfilterbyCheckbox(checkedbox))
+
+  
+
+  console.log("checkedinputs", checkedbox);
+
+  
+
+  }
+}
+
+
+
+
   return (
     <div>
       <h1>categories page {cars?.length}</h1>
@@ -41,9 +103,26 @@ export default function Categories() {
       <div>
         {categories?.map((category) => (
           <div>
-            <h1 >{category?.name}
-            <span onClick={()=>handlecategoryId(category?._id)}>{category?._id}</span>
+            <h1 >
+
+              <div>
+              <label forhtml='category'>
+                {/* // name={category?._id}  */}
+
+<input type="checkbox" name='category' onChange={handleCheckbox } value={category?._id}/>
+
+              </label>
+
+              </div>
+       
+              
+              
+              {category?.name}
+              {/* <div  style={{ maginTop:"100px"}}>
+              <span onClick={()=>handlecategoryId(category?._id)}>{category?._id}</span>
             
+              </div> */}
+           
             
             </h1>
           </div>

@@ -1,7 +1,7 @@
 
 
 import axios from "axios";
-import {fetch_categories,getcarsByCategoryId,fetch_carById} from "./carSlice"
+import {fetch_categories,getcarsByCategoryId,fetch_carById,   getallcars} from "./carSlice"
 import { useDispatch,useSelector } from "react-redux";
 
 
@@ -42,7 +42,7 @@ try{
 
 } catch(err){
 
-    console.log("error message", err);
+    console.log("error message", err.message);
 }
     
     
@@ -74,3 +74,28 @@ try{
             
             }
 
+
+
+
+            // fetch all cars
+
+
+            // http://localhost:5000/api/car/get-all-car
+
+
+            export const fetch_allcarsApi = () => async (dispatch) => {
+
+
+                try{
+                    const res = await axios.get(`${apiurl}/car/get-all-cars`);
+                    console.log("all cars", res.data);
+                    
+                    dispatch(getallcars(res.data)); // all cars with category id fetched
+            
+                } catch(err){
+            
+                    console.log("error message", err);
+                }
+                    
+                    
+                    }
