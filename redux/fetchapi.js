@@ -1,7 +1,7 @@
 
 
 import axios from "axios";
-import {fetch_categories,getcarsByCategoryId} from "./carSlice"
+import {fetch_categories,getcarsByCategoryId,fetch_carById} from "./carSlice"
 import { useDispatch,useSelector } from "react-redux";
 
 
@@ -38,7 +38,7 @@ try{
     const res = await axios.get(`${apiurl}/car/search-car-by-category-id/${categoryId}`);
     console.log("cars by category id", res.data);
     
-   // dispatch(getcarsByCategoryId(res.data)); // all cars with category id fetched
+    dispatch(getcarsByCategoryId(res.data)); // all cars with category id fetched
 
 } catch(err){
 
@@ -47,4 +47,30 @@ try{
     
     
     }
+
+
+
+    // fetch car by id
+
+
+    // http://localhost:5000/api/car/get-car-by-id/5f0b8f9b8b8f9b8b8b8b8b8b
+
+
+    export const fetch_cargoryByIdApi = (carId) => async (dispatch) => {
+
+        console.log("carId", carId);
+
+        try{
+            const res = await axios.get(`${apiurl}/car/find-car-by-id/${carId}`);
+            console.log("car by id", res.data);
+            
+            dispatch(fetch_carById(res.data)); // all cars with category id fetched
+    
+        } catch(err){
+    
+            console.log("error message", err);
+        }
+            
+            
+            }
 

@@ -10,6 +10,7 @@ export const carSlice = createSlice({
     categories: [],
     min_price: 0,
     max_price: 0,
+    singlecar : {},
     singlecategory:{}
   },
   reducers: {
@@ -31,6 +32,14 @@ getcarsByCategoryId: (state, action) => {
   state.allcars = action.payload;
 
 } ,
+
+
+fetch_carById: (state, action) => {
+
+  state.singlecar = action.payload;
+
+} ,
+
 
 
     createcar: (state, action) => {
@@ -125,6 +134,7 @@ export const {
   maxPrice,
   fetch_categoryById,
   getcarsByCategoryId,
+  fetch_carById,
   
 
 
