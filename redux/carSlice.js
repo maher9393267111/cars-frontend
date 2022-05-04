@@ -10,15 +10,29 @@ export const carSlice = createSlice({
     categories: [],
     min_price: 0,
     max_price: 0,
+    singlecategory:{}
   },
   reducers: {
     fetch_categories: (state, action) => {
       state.categories = action.payload;
     },
 
+    fetch_categoryById: (state, action) => {
+
+      state.singlecategory = action.payload;
+    },
+
     getallcars: (state, action) => {
       state.allcars = action.payload;
     },
+
+getcarsByCategoryId: (state, action) => {
+
+  state.allcars = action.payload;
+
+} ,
+
+
     createcar: (state, action) => {
       state.allcars.unshift(action.payload);
     },
@@ -109,8 +123,15 @@ export const {
   fetch_categories,
   minPrice,
   maxPrice,
+  fetch_categoryById,
+  getcarsByCategoryId,
+  
+
 
   filterSearchByName,
 } = carSlice.actions;
 
 export default carSlice.reducer;
+
+
+export const allCategories = (state) => state.car.categories;
