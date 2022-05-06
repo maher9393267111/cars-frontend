@@ -84,7 +84,7 @@ export default function PriceRange() {
             console.log("------>", res.data);
 
             setCar(res.data);
-            dispatch(getallcars(res.data)); //  <--------------
+            dispatch(getallcars(res.data)); //  <-------------- after filter by price
             console.log("------>", car.cars[1]);
             //console.log(car,car.cars.length);
 
