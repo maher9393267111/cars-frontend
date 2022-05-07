@@ -3,9 +3,10 @@ import './App.css';
 import {useState,useRef} from 'react';
 import React from "react";
 import Categories from "./components/categories";
-import Home from "./pages/home";
+//import Home from "./pages/home";
 import PriceRange from './components/priceRange';
-
+import  Maher from "./pages/maherBranch/maher";
+ 
 function App() {
   const [show, setShow] = useState(false);
   const [cityFilter, setCityFilter] = useState([]);
@@ -24,7 +25,7 @@ function App() {
 
 {/* <PriceRange /> */}
 
-<Categories />
+<Maher /> 
 
 
 
